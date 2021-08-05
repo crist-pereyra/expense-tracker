@@ -13,13 +13,18 @@ export const GlobalContext = createContext(initialState);
 
 export const GlobalProvider = ({children}) => {
     const [state, dispatch] = useReducer(AppReducer, initialState);
-    //capture the weather state
+    //Actions
     function deleteTransaction(id) {
         dispatch({ type: 'DELETE_TRANSACTION', payload: id });
     }
+    function addTransaction(transaction) {
+        dispatch({ type: 'ADD_TRANSACTION', payload: transaction });
+    }
+
     return (<GlobalContext.Provider value={{
         transactions: state.transactions,
-        deleteTransaction
+        deleteTransaction,
+        addTransaction
     }}>
         {children}
     </GlobalContext.Provider>)
